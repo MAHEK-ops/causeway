@@ -146,9 +146,9 @@ All 3 test portfolios scored 9+ out of 10 on self-evaluation:
 
 | Portfolio | Type | Confidence | Evaluation |
 |---|---|---|---|
-| PORTFOLIO_001 | Diversified | 81% | 9.8/10 ✅ |
-| PORTFOLIO_002 | Concentrated Banking | 90% | 9.5/10 ✅ |
-| PORTFOLIO_003 | Conservative | 84% | 9.2/10 ✅ |
+| PORTFOLIO_001 | Diversified | 81% | 9.8/10 |
+| PORTFOLIO_002 | Concentrated Banking | 90% | 9.5/10 |
+| PORTFOLIO_003 | Conservative | 84% | 9.2/10 |
 
 ---
 
