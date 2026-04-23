@@ -29,7 +29,7 @@ HISTORICAL_DATA_FILE = DATA_DIR / "historical_data.json"
 
 MODEL_NAME = "gemini-2.5-flash"
 TEMPERATURE = 0.7
-MAX_TOKENS = 4000
+MAX_TOKENS = 8000
 TIMEOUT_SECONDS = 60
 
 # ---------------------------------------------------------------------------

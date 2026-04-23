@@ -18,7 +18,6 @@ import json
 
 from pydantic import ValidationError
 
-
 from src.llm.client import LLMClient
 from src.reasoning.prompts import ACTIVE_SYSTEM_PROMPT, format_user_prompt
 from src.schemas import CausalBriefing, ReasoningContext
@@ -40,9 +39,10 @@ class CausalAgent:
         1. Format the ReasoningContext into a user prompt
         2. Call the LLM
         3. Strip any markdown wrappers from the response
-        4. Parse JSON and validate against CausalBriefing schema
-        5. On validation failure, retry once with the error shown to the LLM
-        6. Return the validated briefing
+        4. Repair common JSON errors (truncation, unterminated strings)
+        5. Parse JSON and validate against CausalBriefing schema
+        6. On validation failure, retry once with the error shown to the LLM
+        7. Return the validated briefing
 
         Raises:
             ValueError: If the LLM fails to produce a valid CausalBriefing after retry.
@@ -55,6 +55,7 @@ class CausalAgent:
         )
 
         raw_text = self._extract_json(response["content"][0]["text"])
+        raw_text = _try_repair_json(raw_text)
 
         try:
             briefing = CausalBriefing(**json.loads(raw_text))
@@ -98,6 +99,7 @@ class CausalAgent:
         )
 
         raw_text = self._extract_json(response["content"][0]["text"])
+        raw_text = _try_repair_json(raw_text)
 
         try:
             briefing = CausalBriefing(**json.loads(raw_text))
@@ -126,3 +128,34 @@ class CausalAgent:
         if text.endswith("```"):
             text = text[:-3]
         return text.strip()
+
+
+# ---------------------------------------------------------------------------
+# JSON repair helper
+# ---------------------------------------------------------------------------
+
+def _try_repair_json(text: str) -> str:
+    """
+    Attempts basic JSON repairs for common LLM output errors.
+    
+    Common issues:
+    - Unterminated strings (missing closing quote)
+    - Truncated output (missing closing braces)
+    
+    This is a best-effort repair — it won't fix all issues, but handles
+    the most common failure mode (output truncation at token limit).
+    """
+    text = text.strip()
+    
+    # If it doesn't end with }, the output was likely truncated
+    if not text.endswith('}'):
+        # Count open/close braces to see how many we're missing
+        open_braces = text.count('{')
+        close_braces = text.count('}')
+        
+        # Add missing closing braces
+        if open_braces > close_braces:
+            missing = open_braces - close_braces
+            text += '\n' + ('}' * missing)
+    
+    return text

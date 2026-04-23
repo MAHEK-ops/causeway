@@ -26,6 +26,9 @@ from pathlib import Path
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
+from dotenv import load_dotenv
+load_dotenv()
+
 sys.path.insert(0, str(Path(__file__).parent))
 
 from src.config import (
