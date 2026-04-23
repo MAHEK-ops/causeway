@@ -18,6 +18,7 @@ import json
 
 from pydantic import ValidationError
 
+
 from src.llm.client import LLMClient
 from src.reasoning.prompts import ACTIVE_SYSTEM_PROMPT, format_user_prompt
 from src.schemas import CausalBriefing, ReasoningContext
