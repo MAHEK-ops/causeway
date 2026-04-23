@@ -27,7 +27,7 @@ HISTORICAL_DATA_FILE = DATA_DIR / "historical_data.json"
 # LLM CONFIG
 # ---------------------------------------------------------------------------
 
-MODEL_NAME = "claude-sonnet-4-20250514"
+MODEL_NAME = "gemini-2.5-flash"
 TEMPERATURE = 0.7
 MAX_TOKENS = 4000
 TIMEOUT_SECONDS = 60
