@@ -1,0 +1,180 @@
+{
+  "headline": "Portfolio declined 0.43% today, driven by banking sector weakness and global risk-off sentiment, partially offset by strong IT and pharma performance.",
+  "causal_chain": [
+    {
+      "level": "PORTFOLIO",
+      "entity": "PORTFOLIO_001",
+      "impact": "Portfolio decreased by -0.43% (-$12,371.66) today.",
+      "magnitude": -0.43
+    },
+    {
+      "level": "NEWS",
+      "entity": "NEWS022",
+      "impact": "Global risk-off sentiment intensified due to US recession fears, leading to broad-based selling in Asian markets.",
+      "magnitude": null
+    },
+    {
+      "level": "NEWS",
+      "entity": "NEWS001",
+      "impact": "RBI maintained hawkish stance, holding repo rate steady at 6.5% amid inflation concerns, signaling potential future hikes.",
+      "magnitude": null
+    },
+    {
+      "level": "NEWS",
+      "entity": "NEWS007",
+      "impact": "Foreign Institutional Investors (FIIs) continued their selling spree in Indian equities, pulling out substantial funds.",
+      "magnitude": null
+    },
+    {
+      "level": "SECTOR",
+      "entity": "BANKING",
+      "impact": "Banking sector declined significantly, impacted by RBI's hawkish stance, FII selling, and overall negative market sentiment.",
+      "magnitude": -2.9417
+    },
+    {
+      "level": "STOCK",
+      "entity": "HDFC Bank Ltd",
+      "impact": "HDFC Bank fell sharply due to mixed Q4 results and concerns over deposit growth lagging loan growth, exacerbated by broader banking sector weakness.",
+      "magnitude": -3.51
+    },
+    {
+      "level": "PORTFOLIO",
+      "entity": "HDFC Bank Ltd (5.4% weight)",
+      "impact": "HDFC Bank's decline was a primary negative contributor to the portfolio's overall performance.",
+      "magnitude": null
+    },
+    {
+      "level": "SECTOR",
+      "entity": "ENERGY",
+      "impact": "Energy sector saw a slight decline, influenced by global crude oil price movements and general market weakness.",
+      "magnitude": -0.3133
+    },
+    {
+      "level": "STOCK",
+      "entity": "Reliance Industries Ltd",
+      "impact": "Reliance Industries fell, likely impacted by the 5% drop in crude oil prices (NEWS016) which can negatively affect refining margins, coupled with general market weakness.",
+      "magnitude": -1.36
+    },
+    {
+      "level": "PORTFOLIO",
+      "entity": "Reliance Industries Ltd (6.0% weight)",
+      "impact": "Reliance Industries' drop contributed to the portfolio's negative movement.",
+      "magnitude": null
+    },
+    {
+      "level": "SECTOR",
+      "entity": "DIVERSIFIED_MF",
+      "impact": "The large 'DIVERSIFIED_MF' allocation, particularly the Axis Small Cap Fund, was likely impacted by the broader market risk-off sentiment and FII selling.",
+      "magnitude": null
+    },
+    {
+      "level": "STOCK",
+      "entity": "Axis Small Cap Fund - Direct Growth",
+      "impact": "The fund declined, reflecting the negative sentiment towards riskier assets and small caps amid global uncertainty and FII outflows.",
+      "magnitude": -1.5
+    },
+    {
+      "level": "PORTFOLIO",
+      "entity": "Axis Small Cap Fund - Direct Growth (2.5% weight)",
+      "impact": "The fund's decline was a negative contributor to the portfolio.",
+      "magnitude": null
+    },
+    {
+      "level": "NEWS",
+      "entity": "NEWS002",
+      "impact": "Strong Q1 earnings from US tech giants boosted sentiment for Indian IT stocks.",
+      "magnitude": null
+    },
+    {
+      "level": "SECTOR",
+      "entity": "INFORMATION_TECHNOLOGY",
+      "impact": "Information Technology sector performed strongly, driven by positive global cues and specific deal wins.",
+      "magnitude": 1.375
+    },
+    {
+      "level": "NEWS",
+      "entity": "NEWS008",
+      "impact": "Infosys secured a significant $1.5 billion deal with a major European bank, enhancing revenue visibility.",
+      "magnitude": null
+    },
+    {
+      "level": "STOCK",
+      "entity": "Infosys Ltd",
+      "impact": "Infosys rallied due to its large deal win and positive sector sentiment from US tech earnings.",
+      "magnitude": 1.97
+    },
+    {
+      "level": "PORTFOLIO",
+      "entity": "Infosys Ltd (5.8% weight)",
+      "impact": "Infosys's strong performance provided a significant positive offset to the portfolio's decline.",
+      "magnitude": null
+    },
+    {
+      "level": "STOCK",
+      "entity": "Tata Consultancy Services",
+      "impact": "TCS rose in line with the positive sector sentiment following strong US tech earnings.",
+      "magnitude": 1.81
+    },
+    {
+      "level": "PORTFOLIO",
+      "entity": "Tata Consultancy Services (7.2% weight)",
+      "impact": "TCS's gains were a notable positive contributor, helping to mitigate overall losses.",
+      "magnitude": null
+    },
+    {
+      "level": "NEWS",
+      "entity": "NEWS004",
+      "impact": "Sun Pharma received USFDA approval for a generic cancer drug, opening a significant market opportunity.",
+      "magnitude": null
+    },
+    {
+      "level": "SECTOR",
+      "entity": "PHARMACEUTICALS",
+      "impact": "Pharmaceuticals sector saw positive movement, bolstered by specific positive news for a major constituent.",
+      "magnitude": 0.5667
+    },
+    {
+      "level": "STOCK",
+      "entity": "Sun Pharmaceutical",
+      "impact": "Sun Pharmaceutical surged following USFDA approval for its generic cancer drug.",
+      "magnitude": 1.67
+    },
+    {
+      "level": "PORTFOLIO",
+      "entity": "Sun Pharmaceutical (3.5% weight)",
+      "impact": "Sun Pharma's rise provided a positive contribution to the portfolio's performance.",
+      "magnitude": null
+    }
+  ],
+  "key_drivers": [
+    "Negative macro sentiment from RBI's hawkish stance, FII selling, and global recession fears weighing on the broader market.",
+    "Significant decline in HDFC Bank due to specific Q4 results concerns and overall banking sector weakness.",
+    "Strong offsetting performance from the Information Technology sector, driven by positive US tech earnings and Infosys's large deal win."
+  ],
+  "conflicting_signals": [
+    {
+      "entity": "Reliance Industries Ltd",
+      "news_sentiment": "POSITIVE",
+      "price_movement": "down 1.36%",
+      "explanation": "NEWS016 (Crude Oil Prices Fall 5%) is broadly positive for India as an oil importer. However, for integrated energy companies like Reliance, falling crude prices can negatively impact refining and upstream margins, leading to a stock decline despite the positive macro news for the country."
+    },
+    {
+      "entity": "FMCG Sector",
+      "news_sentiment": "NEGATIVE",
+      "price_movement": "up 0.2617%",
+      "explanation": "NEWS020 reported negative news for Hindustan Unilever (HUL), a major FMCG player, with flat volume growth. Despite this, the overall FMCG sector saw a slight positive movement, suggesting that other companies in the sector or broader market dynamics counteracted the specific negative news for HUL."
+    }
+  ],
+  "confidence_score": 0.81,
+  "confidence_breakdown": {
+    "data_coverage": 0.9,
+    "signal_agreement": 0.8,
+    "chain_completeness": 0.85,
+    "holding_concentration": 0.7
+  },
+  "recommendations": [
+    "Review exposure to the Banking sector and other interest-rate sensitive holdings given the RBI's hawkish stance and continued FII outflows.",
+    "Evaluate the underlying asset allocation and specific holdings within the 'DIVERSIFIED_MF' given its significant weight and the impact of broader market sentiment on funds like Axis Small Cap.",
+    "Consider rebalancing some gains from the strong-performing IT and Pharmaceutical sectors, especially if global macro headwinds persist, to manage overall portfolio risk."
+  ]
+}

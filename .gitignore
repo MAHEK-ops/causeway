@@ -27,8 +27,7 @@ cache/
 # Project specific
 CLAUDE.md
 traces/*.jsonl
-outputs/*.json
-outputs/*.md
+
 !outputs/.gitkeep
 !traces/.gitkeep
 
