@@ -1,16 +1,16 @@
-# Core dependencies
+streamlit
 google-generativeai==0.8.3
-pydantic==2.9.2
+pydantic>=2.10.0
 python-dotenv==1.0.1
 
-# LLM & Observability
+# Observability
 langfuse==2.51.3
 tenacity==9.0.0
 
-# Data handling
+# Caching
 diskcache==5.6.3
 
-# CLI & Output
+# Logging
 rich==13.9.4
 
 # Testing
