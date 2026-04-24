@@ -1,6 +1,6 @@
 # Causeway
 
-> Autonomous financial advisor agent with causal reasoning. Explains portfolio movements through News -> Sector -> Stock -> Portfolio chains.
+> Autonomous financial advisor agent with causal reasoning. Explains portfolio movements through News → Sector → Stock → Portfolio chains.
 
 Built for YC-backed startup Backend + AI Engineer Intern assignment (48-hour takehome).
 
@@ -10,7 +10,7 @@ Built for YC-backed startup Backend + AI Engineer Intern assignment (48-hour tak
 
 ```bash
 # Clone and setup
-git clone <your-repo-url>
+git clone 
 cd causeway
 python3.11 -m venv venv
 source venv/bin/activate
@@ -34,21 +34,33 @@ Most candidates will dump all data into an LLM and ask "what happened?"
 
 Causeway uses a multi-stage reasoning pipeline with pre-filtering and structured prompts:
 
-1. **Pre-LLM relevance filter** - Rule-based news filtering cuts tokens by ~75%
-2. **Minimal context builder** - Sends ~800 tokens vs ~3000 (token diet)
-3. **Versioned prompts** - Treated as code with ADR-style documentation
-4. **4D confidence breakdown** - Interpretable scoring (data coverage, signal agreement, chain completeness, concentration)
-5. **Hybrid evaluation** - Rules check structure, LLM grades quality
-6. **Structured output with auto-retry** - LLM self-corrects on validation failure
+1. **Pre-LLM relevance filter** — Rule-based news filtering cuts tokens by ~75%
+2. **Minimal context builder** — Sends ~800 tokens vs ~3000 (token diet)
+3. **Versioned prompts** — Treated as code with ADR-style documentation
+4. **4D confidence breakdown** — Interpretable scoring (data coverage, signal agreement, chain completeness, concentration)
+5. **Hybrid evaluation** — Rules check structure, LLM grades quality
+6. **Structured output with auto-retry** — LLM self-corrects on validation failure
 
 **Token efficiency:** ~1200 tokens per briefing vs ~4000 without filtering  
 **Quality:** 9+ evaluation scores across all 3 test portfolios
 
 ---
 
-## Architecture
+## How It Works
 
-```
+1. **Load** market data, news, portfolio holdings
+2. **Analyze** market sentiment and sector trends  
+3. **Filter** news to keep only items relevant to portfolio holdings (~75% token reduction)
+4. **Build** minimal context (~800 tokens vs ~3000)
+5. **Generate** causal briefing via LLM with structured output
+6. **Evaluate** using hybrid rules + LLM grading
+7. **Output** JSON (machine-readable) + Markdown (human-readable)
+
+**End-to-end latency:** ~10-15 seconds per portfolio
+
+---
+
+## Architecture
 causeway/
 ├── src/
 │   ├── config.py              # Single source of truth for constants
@@ -89,13 +101,17 @@ causeway/
 ├── outputs/                   # Generated briefings (3 samples committed)
 ├── run.py                     # CLI orchestrator
 └── tests/                     # Unit tests (portfolio analytics)
-```
+
+**Observability:** Langfuse integration with JSONL fallback. Traces track prompts, responses, tokens, and duration. When Langfuse credentials aren't configured, traces write to `traces/llm_traces.jsonl` instead.
+
+---
 
 ## Sample Output
 
-See `outputs/PORTFOLIO_001_*.md` for a complete briefing. Highlights:
+See `outputs/PORTFOLIO_001_*.md` for a complete briefing.
 
-- Complete causal chain: NEWS -> SECTOR -> STOCK -> PORTFOLIO
+**Highlights:**
+- Complete causal chain: NEWS → SECTOR → STOCK → PORTFOLIO
 - Cites actual holdings with weights (e.g., "HDFC Bank (5.4% weight)")
 - Explains conflicting signals (Reliance fell despite positive crude news)
 - Actionable recommendations (Review banking exposure, rebalance gains)
@@ -107,7 +123,7 @@ See `outputs/PORTFOLIO_001_*.md` for a complete briefing. Highlights:
 
 **Why Gemini over Claude?** Free tier (no cost for takehome). Architecture is model-agnostic with clean abstraction.
 
-**Why hand-rolled agent over LangChain?** JD values "knowing why things work or break" - frameworks hide implementation details.
+**Why hand-rolled agent over LangChain?** JD values "knowing why things work or break" — frameworks hide implementation details.
 
 **Why hybrid evaluation?** Rules catch structural problems (missing levels, wrong format). LLM grades subjective quality (reasoning depth, specificity). Together they're more robust than either alone.
 
@@ -132,20 +148,20 @@ python run.py --portfolio PORTFOLIO_001 --no-cache
 
 ## Tech Stack
 
-- Python 3.11 (Pydantic 2.x compatibility)
-- Google Gemini 2.5 Flash (free tier, fast, good reasoning)
-- Pydantic (type-safe schemas, automatic validation)
-- Rich (CLI progress bars and colored output)
-- Langfuse (observability, with JSONL fallback)
+- **Python 3.11** (Pydantic 2.x compatibility)
+- **Google Gemini 2.5 Flash** (free tier, fast, good reasoning)
+- **Pydantic** (type-safe schemas, automatic validation)
+- **Rich** (CLI progress bars and colored output)
+- **Langfuse** (observability, with JSONL fallback)
 
 ---
 
 ## Results
 
-All 3 test portfolios scored 9+ out of 10 on self-evaluation:
+All 3 test portfolios scored **9+ out of 10** on self-evaluation:
 
 | Portfolio | Type | Confidence | Evaluation |
-|---|---|---|---|
+|-----------|------|------------|------------|
 | PORTFOLIO_001 | Diversified | 81% | 9.8/10 |
 | PORTFOLIO_002 | Concentrated Banking | 90% | 9.5/10 |
 | PORTFOLIO_003 | Conservative | 84% | 9.2/10 |

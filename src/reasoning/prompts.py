@@ -17,7 +17,7 @@ import json
 
 from src.schemas import ReasoningContext
 
-# ---------------------------------------------------------------------------
+
 # PROMPT VERSION 1 — Initial Implementation
 #
 # System prompt goals:
@@ -44,7 +44,7 @@ from src.schemas import ReasoningContext
 #   - Confidence breakdown is interpretable (not a black-box number)
 #   - Handles conflicts explicitly (most prompts ignore this)
 #   - Cites specific holdings (prevents generic output)
-# ---------------------------------------------------------------------------
+
 
 SYSTEM_PROMPT_V1 = """You are a senior financial analyst specializing in portfolio attribution and causal reasoning.
 
@@ -123,17 +123,12 @@ Based on this context, explain:
 
 Remember: Output ONLY valid JSON matching the CausalBriefing schema. Be specific - cite actual holdings and their weights."""
 
-# ---------------------------------------------------------------------------
-# Active prompts — change these to switch versions without touching call sites
-# ---------------------------------------------------------------------------
+# Active prompts - change these to switch versions without touching call sites
 
 ACTIVE_SYSTEM_PROMPT: str = SYSTEM_PROMPT_V1
 ACTIVE_USER_PROMPT: str = USER_PROMPT_V1
 
-
-# ---------------------------------------------------------------------------
 # Formatter
-# ---------------------------------------------------------------------------
 
 def format_user_prompt(context: ReasoningContext) -> str:
     """

@@ -14,9 +14,7 @@ inconsistent) and more nuanced than pure rule-based grading (which misses qualit
 
 from src.schemas import CausalBriefing, PortfolioAnalysis
 
-# ---------------------------------------------------------------------------
 # Dimension names
-# ---------------------------------------------------------------------------
 
 # Dimensions the LLM grader scores on a 1-10 scale
 LLM_DIMENSIONS: list[str] = [
@@ -35,9 +33,7 @@ RULE_CHECKS: list[str] = [
 ]
 
 
-# ---------------------------------------------------------------------------
 # Individual rule-check functions
-# ---------------------------------------------------------------------------
 
 def check_cites_actual_holdings(
     briefing: CausalBriefing,
@@ -132,9 +128,7 @@ def check_recommendations_present(
     return False, f"Too few recommendations ({n}) — should be 2–3"
 
 
-# ---------------------------------------------------------------------------
 # Aggregate runner
-# ---------------------------------------------------------------------------
 
 _RULE_FUNCTIONS = {
     "cites_actual_holdings":   check_cites_actual_holdings,

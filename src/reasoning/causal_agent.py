@@ -63,9 +63,7 @@ class CausalAgent:
         except (json.JSONDecodeError, ValidationError) as e:
             return self._retry_with_feedback(context, raw_text, str(e))
 
-    # ---------------------------------------------------------------------------
     # Private helpers
-    # ---------------------------------------------------------------------------
 
     def _retry_with_feedback(
         self,
@@ -130,9 +128,7 @@ class CausalAgent:
         return text.strip()
 
 
-# ---------------------------------------------------------------------------
 # JSON repair helper
-# ---------------------------------------------------------------------------
 
 def _try_repair_json(text: str) -> str:
     """

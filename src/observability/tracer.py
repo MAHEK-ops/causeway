@@ -116,9 +116,7 @@ class LLMTracer:
             f.write(json.dumps(trace_data) + "\n")
 
 
-# ---------------------------------------------------------------------------
 # Internal trace objects
-# ---------------------------------------------------------------------------
 
 class _NoOpTrace:
     """Returned when tracing is disabled — every method is a silent no-op."""

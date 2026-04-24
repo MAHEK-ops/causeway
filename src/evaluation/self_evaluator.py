@@ -106,9 +106,7 @@ class SelfEvaluator:
             passed=overall_score >= _PASS_THRESHOLD,
         )
 
-    # ---------------------------------------------------------------------------
     # Private helpers
-    # ---------------------------------------------------------------------------
 
     def _run_llm_grading(
         self,

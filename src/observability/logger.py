@@ -107,9 +107,7 @@ class StructuredLogger:
         return logging.Formatter("%(message)s")
 
 
-# ---------------------------------------------------------------------------
 # Factory
-# ---------------------------------------------------------------------------
 
 def get_logger(name: str, log_file: Path | None = None) -> StructuredLogger:
     """

@@ -11,10 +11,7 @@ import pytest
 from src.config import CONCENTRATION_RISK_THRESHOLD
 from src.portfolio.analytics import PortfolioAnalyzer
 
-
-# ---------------------------------------------------------------------------
 # Helpers
-# ---------------------------------------------------------------------------
 
 def _stock(
     symbol: str = "S1",
@@ -64,10 +61,7 @@ def _portfolio(stocks: list[dict] | None = None, mfs: list[dict] | None = None) 
         "enriched_mutual_funds": mfs or [],
     }
 
-
-# ---------------------------------------------------------------------------
 # Tests
-# ---------------------------------------------------------------------------
 
 def test_stock_pnl_calculation():
     """100 shares bought at 10, now at 12 — verify investment, current value, and gain/loss."""

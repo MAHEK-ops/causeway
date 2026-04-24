@@ -84,7 +84,7 @@ def run_pipeline(portfolio_id: str, use_cache: bool = True) -> None:
         console=console,
     ) as progress:
 
-        # ── Phase 1: Load Data ────────────────────────────────────────────
+        # Phase 1: Load Data 
         task = progress.add_task("Loading data files...", total=None)
 
         market_data    = load_json(MARKET_DATA_FILE)
@@ -104,7 +104,7 @@ def run_pipeline(portfolio_id: str, use_cache: bool = True) -> None:
         progress.update(task, description="✓ Data loaded")
         progress.remove_task(task)
 
-        # ── Phase 2: Market Intelligence ──────────────────────────────────
+        # Phase 2: Market Intelligence 
         task = progress.add_task("Analyzing market conditions...", total=None)
 
         market_signal    = MarketAnalyzer().analyze(market_data["indices"])
@@ -114,7 +114,7 @@ def run_pipeline(portfolio_id: str, use_cache: bool = True) -> None:
         progress.update(task, description="✓ Market intelligence complete")
         progress.remove_task(task)
 
-        # ── Phase 3: Portfolio Analytics ─────────────────────────────────
+        #  Phase 3: Portfolio Analytics 
         task = progress.add_task("Analyzing portfolio...", total=None)
 
         enriched        = PortfolioEnricher(market_data, sector_mapping, mutual_funds).enrich(
@@ -125,7 +125,7 @@ def run_pipeline(portfolio_id: str, use_cache: bool = True) -> None:
         progress.update(task, description="✓ Portfolio analysis complete")
         progress.remove_task(task)
 
-        # ── Phase 4: Reasoning ────────────────────────────────────────────
+        # Phase 4: Reasoning 
         task = progress.add_task("Filtering relevant news...", total=None)
 
         filtered_news = RelevanceFilter().filter(classified_news, portfolio)
@@ -149,7 +149,7 @@ def run_pipeline(portfolio_id: str, use_cache: bool = True) -> None:
         progress.update(task, description="✓ Briefing generated")
         progress.remove_task(task)
 
-        # ── Phase 5: Evaluation ───────────────────────────────────────────
+        # Phase 5: Evaluation 
         task = progress.add_task("Self-evaluating briefing...", total=None)
 
         evaluation = SelfEvaluator(llm_client).evaluate(briefing, portfolio)
@@ -160,7 +160,7 @@ def run_pipeline(portfolio_id: str, use_cache: bool = True) -> None:
         )
         progress.remove_task(task)
 
-        # ── Phase 6: Output ───────────────────────────────────────────────
+        # Phase 6: Output 
         task = progress.add_task("Writing outputs...", total=None)
 
         json_path = JSONWriter().write(briefing, portfolio_id)
@@ -169,7 +169,7 @@ def run_pipeline(portfolio_id: str, use_cache: bool = True) -> None:
         progress.update(task, description="✓ Outputs written")
         progress.remove_task(task)
 
-    # ── Summary ───────────────────────────────────────────────────────────
+    # Summary 
     console.print("\n[bold green]✓ Pipeline complete![/bold green]\n")
     console.print(f"  Headline:   {briefing.headline}")
     console.print(f"  Confidence: {briefing.confidence_score:.0%}")

@@ -63,29 +63,29 @@ class MarkdownRenderer:
         """Assembles all sections into the final markdown string."""
         sections: list[str] = []
 
-        # ── Header ────────────────────────────────────────────────────────
+        # Header
         sections.append(f"# Portfolio Briefing: {portfolio_id}")
         sections.append(f"\n**Generated:** {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
         sections.append(f"\n**Confidence:** {briefing.confidence_score:.0%}\n")
         sections.append("---\n")
 
-        # ── Headline ──────────────────────────────────────────────────────
+        # Headline
         sections.append(f"## {briefing.headline}\n")
 
-        # ── Key Drivers ───────────────────────────────────────────────────
+        # Key Drivers 
         sections.append("## Key Drivers\n")
         for i, driver in enumerate(briefing.key_drivers, 1):
             sections.append(f"{i}. {driver}")
         sections.append("")
 
-        # ── Causal Chain ──────────────────────────────────────────────────
+        # Causal Chain
         sections.append("## Causal Chain\n")
         for link in briefing.causal_chain:
             magnitude = f" ({link.magnitude:+.2f}%)" if link.magnitude is not None else ""
             sections.append(f"**{link.level}** → {link.entity}{magnitude}")
             sections.append(f"  - {link.impact}\n")
 
-        # ── Conflicting Signals (optional section) ────────────────────────
+        # Conflicting Signals (optional section)
         if briefing.conflicting_signals:
             sections.append("## Conflicting Signals\n")
             for signal in briefing.conflicting_signals:
@@ -94,13 +94,13 @@ class MarkdownRenderer:
                 sections.append(f"  - Price movement: {signal.price_movement}")
                 sections.append(f"  - Explanation: {signal.explanation}\n")
 
-        # ── Confidence Breakdown ──────────────────────────────────────────
+        # Confidence Breakdown
         sections.append("## Confidence Breakdown\n")
         for dimension, score in briefing.confidence_breakdown.items():
             sections.append(f"- **{dimension.replace('_', ' ').title()}:** {score:.0%}")
         sections.append("")
 
-        # ── Recommendations ───────────────────────────────────────────────
+        # Recommendations
         sections.append("## Recommendations\n")
         for i, rec in enumerate(briefing.recommendations, 1):
             sections.append(f"{i}. {rec}")

@@ -1,12 +1,11 @@
 """
-Rule-based relevance filter — drops news items with zero connection to portfolio.
+Rule-based relevance filter - drops news items with zero connection to portfolio.
 
 This is the first token optimization in the reasoning pipeline. By filtering news
 BEFORE the LLM call, we cut typical token usage from ~4000 to ~1200 per portfolio.
-Most candidates won't do this — they'll send all 25 headlines and let the LLM
+Most candidates won't do this - they'll send all 25 headlines and let the LLM
 figure out what matters. This is both expensive and produces unfocused output.
 """
-
 from src.config import RELEVANCE_MIN_WEIGHT
 from src.schemas import ClassifiedNews, PortfolioAnalysis
 
@@ -16,7 +15,7 @@ _IMPACT_RANK: dict[str, int] = {"HIGH": 3, "MEDIUM": 2, "LOW": 1}
 # Maximum news items to pass to the LLM
 _MAX_ITEMS = 10
 
-# Internal score ceiling — used to normalise to the 0-1 range the schema requires
+# Internal score ceiling - used to normalise to the 0-1 range the schema requires
 _MAX_SCORE = 3.0
 
 
@@ -30,9 +29,9 @@ class RelevanceFilter:
         Keeps only news items connected to this portfolio's holdings.
 
         Scoring (0–3 internally, normalised to 0–1 before storage):
-          3 — MARKET_WIDE or stock-specific news for a held stock above min weight
-          2 — sector-specific news for a sector the portfolio holds
-          0 — no connection to this portfolio (dropped)
+          3 - MARKET_WIDE or stock-specific news for a held stock above min weight
+          2 - sector-specific news for a sector the portfolio holds
+          0 - no connection to this portfolio (dropped)
 
         Final list is sorted by impact_level → relevance_score → |sentiment_score|
         and capped at _MAX_ITEMS. If nothing survives the filter, the top 3
@@ -41,7 +40,7 @@ class RelevanceFilter:
         if not news_items:
             return []
 
-        # ── Build portfolio membership sets ──────────────────────────────────
+        # Build portfolio membership sets 
         portfolio_stocks: set[str] = {h.symbol for h in portfolio.stocks}
         # sector_allocation keys include DIVERSIFIED_MF; those won't match any
         # news sector tag, which is the correct behaviour.
@@ -50,7 +49,7 @@ class RelevanceFilter:
             h.symbol: h.weight_in_portfolio for h in portfolio.stocks
         }
 
-        # ── Score each news item ──────────────────────────────────────────────
+        # Score each news item 
         scored: list[tuple[int, ClassifiedNews]] = []
 
         for item in news_items:
@@ -58,7 +57,7 @@ class RelevanceFilter:
             if score > 0:
                 scored.append((score, item))
 
-        # ── Fallback: empty portfolio or nothing passed the filter ────────────
+        # Fallback: empty portfolio or nothing passed the filter 
         if not scored:
             # Return top 3 highest-impact items so the LLM still gets context
             fallback = sorted(
@@ -68,7 +67,7 @@ class RelevanceFilter:
             )[:3]
             return [n.model_copy(update={"relevance_score": 0.0}) for n in fallback]
 
-        # ── Sort by: impact DESC → relevance DESC → |sentiment| DESC ─────────
+        # Sort by: impact DESC → relevance DESC → |sentiment| DESC 
         scored.sort(
             key=lambda t: (
                 _IMPACT_RANK.get(t[1].impact_level, 0),
@@ -78,7 +77,7 @@ class RelevanceFilter:
             reverse=True,
         )
 
-        # ── Normalise score to 0-1, stamp on item, cap at _MAX_ITEMS ─────────
+        # Normalise score to 0-1, stamp on item, cap at _MAX_ITEMS=
         result: list[ClassifiedNews] = []
         for raw_score, item in scored[:_MAX_ITEMS]:
             normalised = round(raw_score / _MAX_SCORE, 4)
@@ -87,9 +86,7 @@ class RelevanceFilter:
         return result
 
 
-# ---------------------------------------------------------------------------
 # Private helpers
-# ---------------------------------------------------------------------------
 
 def _score(
     item: ClassifiedNews,

@@ -38,7 +38,7 @@ class PortfolioAnalyzer:
         raw_stocks = enriched_portfolio.get("enriched_stocks", [])
         raw_mfs = enriched_portfolio.get("enriched_mutual_funds", [])
 
-        # ── Step 1: compute per-holding values (without weight yet) ─────────
+        # Step 1: compute per-holding values (without weight yet) 
 
         stock_calcs: list[dict] = []
         for s in raw_stocks:
@@ -82,7 +82,7 @@ class PortfolioAnalyzer:
                 }
             )
 
-        # ── Step 2: total portfolio value ────────────────────────────────────
+        # Step 2: total portfolio value 
 
         total_value = sum(s["current_value"] for s in stock_calcs) + sum(
             m["current_value"] for m in mf_calcs
@@ -98,7 +98,7 @@ class PortfolioAnalyzer:
                 day_change_percent=0.0,
             )
 
-        # ── Step 3: build typed holding objects with weight and day_change ───
+        # Step 3: build typed holding objects with weight and day_change
 
         stock_holdings: list[StockHolding] = []
         for s in stock_calcs:
@@ -144,7 +144,7 @@ class PortfolioAnalyzer:
                 )
             )
 
-        # ── Step 4: portfolio-level totals ───────────────────────────────────
+        # Step 4: portfolio-level totals 
 
         day_change_absolute = round(
             sum(h.day_change for h in stock_holdings)
@@ -153,7 +153,7 @@ class PortfolioAnalyzer:
         )
         day_change_percent = round(day_change_absolute / total_value * 100, 2)
 
-        # ── Step 5: sector allocation (fraction of total_value) ──────────────
+        # Step 5: sector allocation (fraction of total_value)
 
         sector_values: dict[str, float] = {}
         for h in stock_holdings:
@@ -166,7 +166,7 @@ class PortfolioAnalyzer:
             sector: round(val / total_value, 4) for sector, val in sector_values.items()
         }
 
-        # ── Step 6: concentration risk ───────────────────────────────────────
+        # Step 6: concentration risk 
 
         breached = [s for s, w in sector_allocation.items() if w > CONCENTRATION_RISK_THRESHOLD]
         concentration_risk = bool(breached)
@@ -176,7 +176,7 @@ class PortfolioAnalyzer:
             else None
         )
 
-        # ── Step 7: top gainer / loser across all holdings ───────────────────
+        # Step 7: top gainer / loser across all holdings 
 
         all_summaries = [
             {"name": h.symbol, "type": "stock", "day_change_percent": h.day_change_percent}

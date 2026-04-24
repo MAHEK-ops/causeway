@@ -55,9 +55,7 @@ class ContextBuilder:
         )
 
 
-# ---------------------------------------------------------------------------
 # Private helpers — each builds one slice of the ReasoningContext
-# ---------------------------------------------------------------------------
 
 def _build_portfolio_summary(portfolio: PortfolioAnalysis) -> dict:
     """Flat stat dict — no nested holding objects that bloat the payload."""
